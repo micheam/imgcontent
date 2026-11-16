@@ -12,9 +12,10 @@ import (
 
 	"cloud.google.com/go/storage"
 	"github.com/atotto/clipboard"
-	"github.com/micheam/contentmgmt"
 	"github.com/pkg/errors"
 	"github.com/urfave/cli"
+
+	"github.com/micheam/contentmgmt"
 )
 
 const (
@@ -230,6 +231,6 @@ func (c ConsoleUploadResultPresenter) Complete(ctx context.Context, data content
 		}
 	}
 
-	fmt.Fprintf(os.Stdout, result)
+	fmt.Fprint(os.Stdout, result)
 	return nil
 }
