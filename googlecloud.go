@@ -1,10 +1,11 @@
-package contentmgmt
+package main
 
 import (
-	"cloud.google.com/go/storage"
 	"context"
 	"io"
 	"net/url"
+
+	"cloud.google.com/go/storage"
 )
 
 var _ ContentWriter = (*GCPContentRepository)(nil)

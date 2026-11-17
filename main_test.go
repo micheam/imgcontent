@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/micheam/contentmgmt"
 	"reflect"
 	"testing"
 	"time"
@@ -14,20 +13,20 @@ func TestDefaultContentPathBuilder_Build(t *testing.T) {
 
 	type args struct {
 		ctx      context.Context
-		filename contentmgmt.Filename
+		filename Filename
 	}
 	tests := []struct {
 		name     string
 		c        ConsoleContentPathBuilder
 		args     args
-		wantPath contentmgmt.ContentPath
+		wantPath ContentPath
 		wantErr  bool
 	}{
 		{
 			name:     "return path with time prefix and filename",
 			c:        ConsoleContentPathBuilder{BaseTime: &basetime},
-			args:     args{ctx: context.TODO(), filename: contentmgmt.Filename{Value: "filename.png", Valid: true}},
-			wantPath: contentmgmt.ContentPath("2014/10/27/111213.filename.png"),
+			args:     args{ctx: context.TODO(), filename: Filename{Value: "filename.png", Valid: true}},
+			wantPath: ContentPath("2014/10/27/111213.filename.png"),
 		},
 	}
 	for _, tt := range tests {

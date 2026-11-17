@@ -1,6 +1,6 @@
 # imgcontent
 
-![](https://github.com/micheam/contentmgmt/workflows/Test/badge.svg)
+![](https://github.com/micheam/imgcontent/workflows/Test/badge.svg)
 
 CLI tool for image content management.
 Register image files used for blog posts, etc. in the cloud storage.
@@ -11,9 +11,9 @@ At the time of initial development, [Google Cloud Storage] is targeted.
 
 [Notice] We have not yet distributed prebuilt binaries 😴
 
-get src and build binary with `go get`:
+Build and install the binary with `go install`:
 
-    go get github.com/micheam/contentmgmt/cmd/imgcontent
+    go install github.com/micheam/imgcontent@latest
 
 `imgcontent` binary will be installed:
 

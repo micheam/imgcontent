@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"text/template"
@@ -14,8 +14,6 @@ import (
 	"github.com/atotto/clipboard"
 	"github.com/pkg/errors"
 	"github.com/urfave/cli"
-
-	"github.com/micheam/contentmgmt"
 )
 
 const (
@@ -67,7 +65,7 @@ var uploadCmd = cli.Command{
 		if c.GlobalBool("verbose") {
 			log.SetOutput(os.Stderr)
 		} else {
-			log.SetOutput(ioutil.Discard)
+			log.SetOutput(io.Discard)
 		}
 
 		if c.NArg() > 1 {
@@ -95,7 +93,7 @@ var uploadCmd = cli.Command{
 		}
 
 		bucketName := os.Getenv("IMGCONTENT_GCS_BUCKET")
-		contentWriter := contentmgmt.GCPContentRepository{
+		contentWriter := GCPContentRepository{
 			BucketName: bucketName,
 			Client:     client,
 		}
@@ -121,19 +119,19 @@ var uploadCmd = cli.Command{
 		}
 
 		// init interacter
-		usecase := contentmgmt.UploadUsecase{
+		usecase := UploadUsecase{
 			PathBuilder: contentPathBuilder,
 			Writer:      contentWriter,
 			Presenter:   uploadPresenter,
 		}
 
 		// create InputData
-		filename, err := contentmgmt.NewFilename(file.Name())
+		filename, err := NewFilename(file.Name())
 		if err != nil {
 			log.Fatal(err.Error())
 		}
 
-		request := contentmgmt.UploadInput{
+		request := UploadInput{
 			Filename: *filename,
 			Reader:   file,
 		}
@@ -150,7 +148,7 @@ type ConsoleContentPathBuilder struct {
 const DefaultContentPathTemplate = `{{.BaseTime.Format "2006/01/02/030405"}}.{{.FileName}}`
 
 func (c ConsoleContentPathBuilder) Build(
-	ctx context.Context, fname contentmgmt.Filename) (path contentmgmt.ContentPath, err error) {
+	ctx context.Context, fname Filename) (path ContentPath, err error) {
 
 	basetime := time.Now()
 	if c.BaseTime != nil {
@@ -178,7 +176,7 @@ func (c ConsoleContentPathBuilder) Build(
 		return path, errors.Wrap(err, "failed to build content path")
 	}
 
-	path = contentmgmt.ContentPath(buf.String())
+	path = ContentPath(buf.String())
 	log.Printf("content path: computed %q", path)
 
 	return
@@ -196,7 +194,7 @@ const (
 	AsciidocResultTemplate = `image::{{.Scheme}}://{{.Host}}/{{.Path}}[{{.Filename}}]`
 )
 
-func (c ConsoleUploadResultPresenter) Complete(ctx context.Context, data contentmgmt.UploadOutput) error {
+func (c ConsoleUploadResultPresenter) Complete(ctx context.Context, data UploadOutput) error {
 
 	var err error
 

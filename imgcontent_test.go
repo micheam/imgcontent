@@ -1,4 +1,4 @@
-package contentmgmt
+package main
 
 import (
 	"reflect"

@@ -1,4 +1,4 @@
-module github.com/micheam/contentmgmt
+module github.com/micheam/imgcontent
 
 go 1.27.4
 
