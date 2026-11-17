@@ -16,9 +16,8 @@ import (
 	"github.com/urfave/cli"
 )
 
-const (
-	Version string = "0.2.0"
-)
+// Version is overridden at build time via -ldflags "-X main.Version=...".
+var Version = "0.2.0"
 
 func main() {
 	app := cli.NewApp()
