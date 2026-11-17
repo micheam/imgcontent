@@ -30,7 +30,7 @@ IMGCONTENT_GCS_BUCKET | bucket name | your-bucket
 
 ```
 NAME:
-   imagecontent - manage img content
+   imgcontent - manage img content
 
 USAGE:
    imgcontent [global options] command [command options] [arguments...]

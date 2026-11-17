@@ -21,7 +21,7 @@ var Version = "0.2.0"
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "imagecontent"
+	app.Name = "imgcontent"
 	app.Usage = "manage img content"
 	app.Version = Version
 	app.Author = "Michto Maeda"
